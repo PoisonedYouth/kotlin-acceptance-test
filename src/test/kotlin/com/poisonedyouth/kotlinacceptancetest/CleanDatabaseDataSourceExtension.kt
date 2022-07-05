@@ -13,8 +13,13 @@ class CleanDatabaseDataSourceExtension : BeforeEachCallback {
 
     override fun beforeEach(context: ExtensionContext?) {
         dataSource.connection.use {
-            //it.createStatement().execute("DELETE FROM customer")
-            //it.createStatement().execute("ALTER TABLE customer AUTO_INCREMENT = 1")
+            it.createStatement().execute("SET FOREIGN_KEY_CHECKS=0;")
+            it.createStatement().execute("DELETE FROM customer")
+            it.createStatement().execute("ALTER TABLE customer AUTO_INCREMENT = 1")
+            it.createStatement().execute("DELETE FROM address")
+            it.createStatement().execute("ALTER TABLE address AUTO_INCREMENT = 1")
+            it.createStatement().execute("SET FOREIGN_KEY_CHECKS=1;")
+
         }
     }
 

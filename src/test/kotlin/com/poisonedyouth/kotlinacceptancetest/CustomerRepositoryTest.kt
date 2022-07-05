@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.dao.InvalidDataAccessApiUsageException
 import java.time.LocalDate
 
@@ -51,6 +52,52 @@ class CustomerRepositoryTest {
 
         // then
         assertThat(customerRepository.findById(actual.id).get()).isEqualTo(customer)
+    }
+
+    @Test
+    fun `save Customer not allows duplicate email`() {
+        // given
+        val address = Address(
+            street = "Main Street",
+            number = "13",
+            zipCode = 90001,
+            city = "Los Angeles",
+            country = "USA"
+        )
+        addressRepository.save(address)
+
+        val customer = Customer(
+            firstName = "John",
+            lastName = "Doe",
+            birthdate = LocalDate.of(2001, 5, 10),
+            email = "john.doe@mail.com",
+            address = address,
+            accounts = setOf(
+                Account(
+                    number = 12345,
+                    balance = 200
+                ),
+                Account(
+                    number = 12346,
+                    balance = -150
+                )
+            )
+        )
+        customerRepository.save(customer)
+
+        val customerDuplicate = Customer(
+            firstName = "Duplicate",
+            lastName = "Customer",
+            birthdate = LocalDate.of(1984, 12, 1),
+            email = "john.doe@mail.com",
+            address = address,
+            accounts = emptySet()
+        )
+
+        // when + then
+        assertThatThrownBy {
+            customerRepository.save(customerDuplicate)
+        }.isInstanceOf(DataIntegrityViolationException::class.java)
     }
 
     @Test
