@@ -25,7 +25,7 @@ class CustomerRepositoryTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
         addressRepository.save(address)
 
@@ -62,7 +62,7 @@ class CustomerRepositoryTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
         addressRepository.save(address)
 
@@ -108,7 +108,7 @@ class CustomerRepositoryTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
 
         val customer = Customer(
@@ -143,7 +143,7 @@ class CustomerRepositoryTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
         addressRepository.save(address)
 
@@ -181,7 +181,7 @@ class CustomerRepositoryTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
         addressRepository.save(address)
 
@@ -219,7 +219,7 @@ class CustomerRepositoryTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
         addressRepository.save(address)
 

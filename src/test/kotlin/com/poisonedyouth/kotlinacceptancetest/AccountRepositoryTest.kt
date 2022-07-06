@@ -35,7 +35,7 @@ class AccountRepositoryTest {
         accountRepository.save(account2)
 
         // when
-        val actual = accountRepository.findById(1).get()
+        val actual = accountRepository.findById(account1.id).get()
 
         // then
         assertThat(actual).isEqualTo(account1)

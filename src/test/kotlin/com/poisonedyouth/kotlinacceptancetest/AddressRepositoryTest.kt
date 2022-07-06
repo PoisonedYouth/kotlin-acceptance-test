@@ -18,7 +18,7 @@ class AddressRepositoryTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
 
         // when
@@ -36,7 +36,7 @@ class AddressRepositoryTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
         addressRepository.save(address1)
 
@@ -45,7 +45,7 @@ class AddressRepositoryTest {
             number = "25A",
             zipCode = 10115,
             city = "Berlin",
-            country = "De"
+            country = "DE"
         )
         addressRepository.save(address2)
 
@@ -64,7 +64,7 @@ class AddressRepositoryTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
         addressRepository.save(address1)
 
@@ -73,7 +73,7 @@ class AddressRepositoryTest {
             number = "25A",
             zipCode = 10115,
             city = "Berlin",
-            country = "De"
+            country = "DE"
         )
         addressRepository.save(address2)
 

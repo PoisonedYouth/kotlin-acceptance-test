@@ -60,7 +60,7 @@ class CustomerApplicationServiceTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
         addressRepository.save(address)
         val customer = Customer(
@@ -100,7 +100,7 @@ class CustomerApplicationServiceTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
         val customer = Customer(
             firstName = "Max",
@@ -134,7 +134,7 @@ class CustomerApplicationServiceTest {
             number = "13",
             zipCode = 90001,
             city = "Los Angeles",
-            country = "USA"
+            country = "US"
         )
         addressRepository.save(address)
         val customer = Customer(

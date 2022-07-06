@@ -27,7 +27,28 @@ data class Customer(
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, fetch = EAGER)
     @JoinColumn(name = "addresss_id")
     val accounts: Set<Account> = emptySet()
-){
+) {
     val customerId: Long = createCustomerId()
-    private fun createCustomerId() = Random.nextLong(99999)
+    private fun createCustomerId() = Random.nextLong(10000, 99999)
+
+    private val nameRegex = Regex("[A-Za-z]+")
+
+    init {
+        require(firstName.matches(nameRegex)) {
+            "Firstname '${firstName}' contains special characters!"
+        }
+
+        require(lastName.matches(nameRegex)) {
+            "Lastname '${lastName}' contains special characters!"
+        }
+
+        val now = LocalDate.now()
+        require(
+            birthdate.isBefore(now.minusYears(18)) && birthdate.isAfter(now.minusYears(100))
+        ) {
+            "Age must be between 18 and 100!"
+        }
+    }
+
+
 }
