@@ -29,7 +29,7 @@ class AddressRepositoryTest {
     }
 
     @Test
-    fun `findAddressesByCity returns matching address`() {
+    fun `findAddressesByZipCode returns matching address`() {
         // given
         val address1 = Address(
             street = "Main Street",
@@ -50,14 +50,14 @@ class AddressRepositoryTest {
         addressRepository.save(address2)
 
         // when
-        val actual = addressRepository.findAddressesByCity("Berlin")
+        val actual = addressRepository.findAddressesByZipCode(10115)
 
         // then
-        assertThat(actual).containsOnly(address2)
+        assertThat(actual.get()).isEqualTo(address2)
     }
 
     @Test
-    fun `findAddressesByCity returns empty list for no matching address`() {
+    fun `findAddressesByCity returns empty optional for no matching address`() {
         // given
         val address1 = Address(
             street = "Main Street",
@@ -78,9 +78,9 @@ class AddressRepositoryTest {
         addressRepository.save(address2)
 
         // when
-        val actual = addressRepository.findAddressesByCity("Freiburg")
+        val actual = addressRepository.findAddressesByZipCode(88888)
 
         // then
-        assertThat(actual).isEmpty()
+        assertThat(actual).isEmpty
     }
 }
