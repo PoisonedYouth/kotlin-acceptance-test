@@ -172,4 +172,80 @@ class CustomerRepositoryTest {
         // then
         assertThat(actual.get()).isEqualTo(customer)
     }
+
+    @Test
+    fun `existsCustomerByEmail returns true if customer exists`(){
+        // given
+        val address = Address(
+            street = "Main Street",
+            number = "13",
+            zipCode = 90001,
+            city = "Los Angeles",
+            country = "USA"
+        )
+        addressRepository.save(address)
+
+        val customer = Customer(
+            firstName = "John",
+            lastName = "Doe",
+            birthdate = LocalDate.of(2001, 5, 10),
+            email = "john.doe@mail.com",
+            address = address,
+            accounts = setOf(
+                Account(
+                    number = 12345,
+                    balance = 200
+                ),
+                Account(
+                    number = 12346,
+                    balance = -150
+                )
+            )
+        )
+        customerRepository.save(customer)
+
+        // when
+        val actual = customerRepository.existsCustomerByEmail(customer.email)
+
+        // then
+        assertThat(actual).isTrue
+    }
+
+    @Test
+    fun `existsCustomerByEmail returns false if customer not exists`(){
+        // given
+        val address = Address(
+            street = "Main Street",
+            number = "13",
+            zipCode = 90001,
+            city = "Los Angeles",
+            country = "USA"
+        )
+        addressRepository.save(address)
+
+        val customer = Customer(
+            firstName = "John",
+            lastName = "Doe",
+            birthdate = LocalDate.of(2001, 5, 10),
+            email = "john.doe@mail.com",
+            address = address,
+            accounts = setOf(
+                Account(
+                    number = 12345,
+                    balance = 200
+                ),
+                Account(
+                    number = 12346,
+                    balance = -150
+                )
+            )
+        )
+        customerRepository.save(customer)
+
+        // when
+        val actual = customerRepository.existsCustomerByEmail("otherCustomer@mail.com")
+
+        // then
+        assertThat(actual).isFalse
+    }
 }
