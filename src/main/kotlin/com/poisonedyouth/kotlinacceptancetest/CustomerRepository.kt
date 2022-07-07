@@ -9,8 +9,6 @@ import java.util.Optional
 @Repository
 @Transactional(propagation = REQUIRED)
 interface CustomerRepository: CrudRepository<Customer, Long> {
-
     fun findByFirstNameAndLastName(firstName: String, lastName: String): Optional<Customer>
-
     fun existsCustomerByEmail(email: String): Boolean
 }

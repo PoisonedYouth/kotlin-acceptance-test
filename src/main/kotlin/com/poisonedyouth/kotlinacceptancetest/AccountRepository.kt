@@ -7,5 +7,4 @@ import org.springframework.transaction.annotation.Transactional
 
 @Repository
 @Transactional(propagation = REQUIRED)
-interface AccountRepository : CrudRepository<Account, Long> {
-}
+interface AccountRepository : CrudRepository<Account, Long>

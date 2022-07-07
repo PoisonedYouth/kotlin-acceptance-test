@@ -10,6 +10,5 @@ import java.util.*
 @Repository
 @Transactional(propagation = REQUIRED)
 interface AddressRepository : CrudRepository<Address, Long> {
-
     fun findAddressesByZipCode(zipCode: Int): Optional<Address>
 }
