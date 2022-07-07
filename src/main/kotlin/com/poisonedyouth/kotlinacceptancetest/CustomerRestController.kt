@@ -5,7 +5,8 @@ import com.poisonedyouth.kotlinacceptancetest.ApiResult.Success
 import com.poisonedyouth.kotlinacceptancetest.ErrorCode.DUPLICATE_EMAIL
 import com.poisonedyouth.kotlinacceptancetest.ErrorCode.GENERAL_ERROR
 import com.poisonedyouth.kotlinacceptancetest.ErrorCode.INVALID_DATE
-import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatus.BAD_REQUEST
+import org.springframework.http.HttpStatus.CREATED
 import org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
@@ -34,7 +35,7 @@ class CustomerRestController(
     }
 
     private fun handleSuccess(result: Success<Any>): ResponseEntity<SuccessDto> {
-        return ResponseEntity.status(HttpStatus.CREATED).body(SuccessDto(result.value))
+        return ResponseEntity.status(CREATED).body(SuccessDto(result.value))
     }
 
     private fun handleFailure(
@@ -44,7 +45,7 @@ class CustomerRestController(
         val code = result.errorCode
         val status = when (code) {
             INVALID_DATE,
-            DUPLICATE_EMAIL -> HttpStatus.BAD_REQUEST
+            DUPLICATE_EMAIL -> BAD_REQUEST
             GENERAL_ERROR -> INTERNAL_SERVER_ERROR
         }
         val errorDto = ErrorDto(code.name, result.errorMessage)
