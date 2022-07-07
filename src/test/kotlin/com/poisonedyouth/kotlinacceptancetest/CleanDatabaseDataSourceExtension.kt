@@ -19,7 +19,6 @@ class CleanDatabaseDataSourceExtension : BeforeEachCallback {
             it.createStatement().execute("DELETE FROM address")
             it.createStatement().execute("ALTER TABLE address AUTO_INCREMENT = 1")
             it.createStatement().execute("SET FOREIGN_KEY_CHECKS=1;")
-
         }
     }
 
