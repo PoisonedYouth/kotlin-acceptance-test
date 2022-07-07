@@ -32,6 +32,6 @@ class CustomerAcceptanceTest {
             .andReturn()
 
         // then
-        assertThat(result.response.contentAsString).isEqualTo("{\"customerId\": \"11111\"")
+        assertThat(result.response.contentAsString).matches("\\{\"customerId\":[\\d]{5}}")
     }
 }

@@ -3,6 +3,7 @@ package com.poisonedyouth.kotlinacceptancetest
 import com.poisonedyouth.kotlinacceptancetest.ApiResult.Failure
 import com.poisonedyouth.kotlinacceptancetest.ApiResult.Success
 import com.poisonedyouth.kotlinacceptancetest.ErrorCode.DUPLICATE_EMAIL
+import com.poisonedyouth.kotlinacceptancetest.ErrorCode.GENERAL_ERROR
 import com.poisonedyouth.kotlinacceptancetest.ErrorCode.INVALID_DATE
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -19,27 +20,30 @@ class CustomerApplicationService(
 
     @Transactional
     fun addNewCustomer(customerDto: CustomerDto): ApiResult<Any> {
-        val customer = try {
-            mapCustomerDtoToCustomer(customerDto)
+        try {
+            val customer = mapCustomerDtoToCustomer(customerDto)
+
+            if (customerRepository.existsCustomerByEmail(customer.email)) {
+                return Failure(DUPLICATE_EMAIL, "For the email '${customer.email}' a customer already exists!")
+            }
+
+            val address = addressRepository.findAddressesByZipCode(customer.address.zipCode)
+            val customerToPersist = if (address.isEmpty) {
+                customer.copy(address = addressRepository.save(customer.address))
+            } else {
+                customer.copy(address = address.get())
+            }
+
+            return Success(customerRepository.save(customerToPersist).customerId)
+
         } catch (e: DateTimeParseException) {
             return Failure(
                 INVALID_DATE,
                 "The birthdate '${customerDto.birthdate}' is not in expected format (dd.MM.yyyy)!"
             )
+        } catch (e: Exception) {
+            return Failure(GENERAL_ERROR, "An unexpected error occurred (${e.message}!")
         }
-
-        if (customerRepository.existsCustomerByEmail(customer.email)) {
-            return Failure(DUPLICATE_EMAIL, "For the email '${customer.email}' a customer already exists!")
-        }
-
-        val address = addressRepository.findAddressesByZipCode(customer.address.zipCode)
-        val customerToPersist = if (address.isEmpty) {
-            customer.copy(address = addressRepository.save(customer.address))
-        } else {
-            customer.copy(address = address.get())
-        }
-
-        return Success(customerRepository.save(customerToPersist).customerId)
     }
 
     private fun mapCustomerDtoToCustomer(customerDto: CustomerDto): Customer {
@@ -73,4 +77,5 @@ sealed class ApiResult<out T> {
 enum class ErrorCode {
     DUPLICATE_EMAIL,
     INVALID_DATE,
+    GENERAL_ERROR,
 }
