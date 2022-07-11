@@ -50,7 +50,7 @@ class AddressRepositoryTest {
         addressRepository.save(address2)
 
         // when
-        val actual = addressRepository.findAddressesByZipCode(10115)
+        val actual = addressRepository.findAddressByZipCode(10115)
 
         // then
         assertThat(actual.get()).isEqualTo(address2)
@@ -78,7 +78,7 @@ class AddressRepositoryTest {
         addressRepository.save(address2)
 
         // when
-        val actual = addressRepository.findAddressesByZipCode(88888)
+        val actual = addressRepository.findAddressByZipCode(88888)
 
         // then
         assertThat(actual).isEmpty

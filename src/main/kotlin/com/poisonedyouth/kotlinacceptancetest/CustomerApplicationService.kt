@@ -27,7 +27,7 @@ class CustomerApplicationService(
                 return Failure(DUPLICATE_EMAIL, "For the email '${customer.email}' a customer already exists!")
             }
 
-            val address = addressRepository.findAddressesByZipCode(customer.address.zipCode)
+            val address = addressRepository.findAddressByZipCode(customer.address.zipCode)
             val customerToPersist = if (address.isEmpty) {
                 customer.copy(address = addressRepository.save(customer.address))
             } else {
