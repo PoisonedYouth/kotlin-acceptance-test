@@ -17,7 +17,7 @@ data class Address(
     val country: String
 ) {
     init {
-        require(zipCode in 10000..99999){
+        require(zipCode in 10000..99999) {
             "ZipCode must contain 5 digits!"
         }
 

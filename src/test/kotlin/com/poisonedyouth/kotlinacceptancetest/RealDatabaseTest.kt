@@ -1,7 +1,5 @@
 package com.poisonedyouth.kotlinacceptancetest
 
-import com.poisonedyouth.realdatabasedemo.CleanDatabaseDataSourceExtension
-import com.poisonedyouth.realdatabasedemo.TestContextDataSourceConfiguration
 import kotlin.annotation.AnnotationRetention.RUNTIME
 import kotlin.annotation.AnnotationTarget.ANNOTATION_CLASS
 import kotlin.annotation.AnnotationTarget.CLASS

@@ -1,13 +1,13 @@
 package com.poisonedyouth.kotlinacceptancetest
 
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
+@RealDatabaseTest
 class KotlinAcceptanceTestApplicationTests {
 
     @Test
     fun contextLoads() {
+        // Just checks context load is possible
     }
 
 }

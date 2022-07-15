@@ -1,4 +1,4 @@
-package com.poisonedyouth.realdatabasedemo
+package com.poisonedyouth.kotlinacceptancetest
 
 import javax.sql.DataSource
 import org.junit.jupiter.api.extension.BeforeEachCallback

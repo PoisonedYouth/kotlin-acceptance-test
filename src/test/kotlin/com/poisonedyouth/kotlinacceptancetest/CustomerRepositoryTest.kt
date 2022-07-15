@@ -248,4 +248,43 @@ class CustomerRepositoryTest {
         // then
         assertThat(actual).isFalse
     }
+
+    @Test
+    fun `delete customer not deletes address`() {
+        // given
+        val address = Address(
+            street = "Main Street",
+            number = "13",
+            zipCode = 90001,
+            city = "Los Angeles",
+            country = "US"
+        )
+        addressRepository.save(address)
+
+        val customer = Customer(
+            firstName = "John",
+            lastName = "Doe",
+            birthdate = LocalDate.of(2001, 5, 10),
+            email = "john.doe@mail.com",
+            address = address,
+            accounts = setOf(
+                Account(
+                    number = 12345,
+                    balance = 200
+                ),
+                Account(
+                    number = 12346,
+                    balance = -150
+                )
+            )
+        )
+        customerRepository.save(customer)
+
+        // when
+        customerRepository.delete(customer)
+
+        // then
+        assertThat(customerRepository.findAll()).isEmpty()
+        assertThat(addressRepository.findAll()).isNotEmpty
+    }
 }
